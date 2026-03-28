@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Для Карины ❤️ С любовью навсегда</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 50%, #ffdde1 100%);
+            font-family: 'Segoe UI', 'Poppins', 'Arial', sans-serif;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(12px);
+            border-radius: 50px;
+            padding: 25px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: white;
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: rgba(255,255,240,0.9);
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .counter-panel {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .counter-box {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 60px;
+            padding: 8px 25px;
+            backdrop-filter: blur(5px);
+            text-align: center;
+        }
+
+        .counter-box span {
+            font-size: 1.2rem;
+            color: #ffeb3b;
+        }
+
+        .counter-box .count {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: white;
+            background: #ff3366;
+            padding: 3px 20px;
+            border-radius: 50px;
+            margin-left: 12px;
+            display: inline-block;
+            min-width: 80px;
+        }
+
+        .buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 18px;
+            margin: 30px 0;
+        }
+
+        .love-btn {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            border: none;
+            padding: 16px 12px;
+            border-radius: 50px;
+            font-size: 1.05rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+            font-family: inherit;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .love-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .love-btn:active {
+            transform: translateY(2px);
+        }
+
+        .control-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .ctrl-btn {
+            background: rgba(255, 255, 255, 0.9);
+            color: #ff3366;
+            border: 2px solid #ff3366;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+
+        .ctrl-btn:hover {
+            background: #ff3366;
+            color: white;
+            transform: scale(1.02);
+        }
+
+        /* ========== ПАСХАЛКА — ШТОРКА С РАСТУЩИМ ГОДОМ ========== */
+        .easter-egg-trigger {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 51, 102, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1500;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: 0.3s;
+            font-size: 28px;
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255,255,255,0.6);
+        }
+        .easter-egg-trigger:hover {
+            transform: scale(1.1);
+            background: #ff3366;
+        }
+
+        .curtain-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.96);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transform: translateY(-100%);
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+        }
+        .curtain-overlay.open {
+            transform: translateY(0);
+        }
+
+        .curtain-content {
+            max-width: 90%;
+            width: 650px;
+            background: linear-gradient(135deg, rgba(255,65,108,0.95), rgba(255,75,43,0.95));
+            border-radius: 40px;
+            padding: 40px 30px;
+            text-align: center;
+            border: 3px solid gold;
+            box-shadow: 0 0 60px rgba(255,51,102,0.6);
+            position: relative;
+            animation: fadeInScale 0.5s ease;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .close-curtain {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 32px;
+            color: white;
+            cursor: pointer;
+            background: rgba(0,0,0,0.4);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+        .close-curtain:hover {
+            background: rgba(0,0,0,0.8);
+            transform: scale(1.1);
+        }
+
+        .main-message {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            line-height: 1.3;
+        }
+
+        .current-date-highlight {
+            font-size: 2.5rem;
+            background: rgba(0,0,0,0.5);
+            display: inline-block;
+            padding: 10px 25px;
+            border-radius: 60px;
+            margin: 15px 0;
+            color: #ffeb3b;
+            font-family: monospace;
+            letter-spacing: 4px;
+        }
+
+        /* Контейнер для бесконечно растущих чисел */
+        .growing-numbers {
+            background: rgba(0,0,0,0.6);
+            border-radius: 30px;
+            padding: 20px;
+            margin-top: 20px;
+            max-height: 350px;
+            overflow-y: auto;
+            font-family: monospace;
+            text-align: left;
+            line-height: 1.8;
+        }
+
+        .number-entry {
+            display: inline-block;
+            background: rgba(255,235,59,0.2);
+            margin: 4px;
+            padding: 6px 12px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #ffeb3b;
+            animation: numberPop 0.4s ease-out;
+            white-space: nowrap;
+        }
+
+        @keyframes numberPop {
+            0% { opacity: 0; transform: scale(0.5) translateY(20px); }
+            70% { transform: scale(1.1); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* Падающие цифры на фоне */
+        .falling-numbers {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 2001;
+        }
+        .falling-number {
+            position: absolute;
+            color: rgba(255, 235, 59, 0.5);
+            font-size: 22px;
+            font-weight: bold;
+            font-family: monospace;
+            white-space: nowrap;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        .floating-hearts {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        /* Счетчик прожитых лет вместе */
+        .years-counter {
+            margin-top: 20px;
+            font-size: 1.1rem;
+            background: rgba(0,0,0,0.5);
+            border-radius: 40px;
+            padding: 10px;
+            color: #ffeb3b;
+        }
+
+        @media (max-width: 600px) {
+            .buttons-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 1.8rem; }
+            .love-btn { padding: 14px; font-size: 1rem; }
+            .main-message { font-size: 1.3rem; }
+            .current-date-highlight { font-size: 1.6rem; }
+            .number-entry { font-size: 0.9rem; padding: 4px 8px; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); background: #ff6b6b; }
+            100% { transform: scale(1); }
+        }
+        .new-btn-animation { animation: pulse 0.4s ease; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>✨ ДЛЯ КАРИНЫ ✨</h1>
+    <div class="subtitle">❤️ Нажми на любую кнопку — я скажу тебе самое важное ❤️</div>
+
+    <div class="counter-panel">
+        <div class="counter-box">
+            <span>💖 Всего признаний:</span>
+            <span class="count" id="clickCount">0</span>
+        </div>
+        <div class="counter-box">
+            <span>🌸 Количество кнопок:</span>
+            <span class="count" id="buttonsCountDisplay">0</span>
+        </div>
+    </div>
+
+    <div class="buttons-grid" id="buttonsGrid"></div>
+
+    <div class="control-buttons">
+        <button class="ctrl-btn" id="addButton">➕ Добавить новую фразу</button>
+        <button class="ctrl-btn" id="resetButtons">🔄 Сбросить кнопки (12 шт)</button>
+        <button class="ctrl-btn" id="clearCounter">🗑️ Сбросить счетчик</button>
+    </div>
+</div>
+
+<!-- Триггер для пасхалки -->
+<div class="easter-egg-trigger" id="easterTrigger">
+    💝
+</div>
+
+<!-- Шторка с растущим годом -->
+<div class="curtain-overlay" id="curtainOverlay">
+    <div class="falling-numbers" id="fallingNumbers"></div>
+    <div class="curtain-content">
+        <div class="close-curtain" id="closeCurtain">✕</div>
+        <div class="main-message">
+            💖 15.03.25 нам был год 💖<br>
+            хочу что бы это число<br>
+            росло вместе с нами<br>
+            люблю тебя ❤️
+        </div>
+        <div class="current-date-highlight" id="currentDateDisplay">
+            15.03.25
+        </div>
+        <div class="growing-numbers" id="growingNumbers">
+            <div style="text-align: center; color: rgba(255,235,59,0.7);">✨ числа растут в будущее ✨</div>
+        </div>
+        <div class="years-counter" id="yearsCounter"></div>
+    </div>
+</div>
+
+<div class="floating-hearts" id="floatingHearts"></div>
+
+<script>
+    // ==================== ХРАНИЛИЩЕ ФРАЗ ====================
+    const DEFAULT_PHRASES = [
+        "❤️ Карина, я тебя люблю ❤️",
+        "🌟 Ты самая красивая 🌟",
+        "💐 Ты самая прекрасная 💐",
+        "👑 Ты самая любимая 👑",
+        "✨ Ты — мое солнце ✨",
+        "🌸 С тобой мир ярче 🌸",
+        "💎 Ты бесценна 💎",
+        "🎀 Ты само совершенство 🎀",
+        "💕 Мое сердце бьется для тебя 💕",
+        "🌹 Ты — мечта 🌹",
+        "⭐ Ты лучше всех на свете ⭐",
+        "💖 Ты — мое вдохновение 💖"
+    ];
+
+    const STORAGE_CLICKS = 'karina_total_clicks';
+    const STORAGE_PHRASES = 'karina_phrases_list';
+
+    let totalClicks = 0;
+    let phrasesList = [...DEFAULT_PHRASES];
+
+    const buttonsGrid = document.getElementById('buttonsGrid');
+    const clickCountSpan = document.getElementById('clickCount');
+    const buttonsCountSpan = document.getElementById('buttonsCountDisplay');
+    const addButton = document.getElementById('addButton');
+    const resetButtons = document.getElementById('resetButtons');
+    const clearCounter = document.getElementById('clearCounter');
+
+    // ========== ПАСХАЛКА С РАСТУЩИМ ГОДОМ ==========
+    const easterTrigger = document.getElementById('easterTrigger');
+    const curtainOverlay = document.getElementById('curtainOverlay');
+    const closeCurtain = document.getElementById('closeCurtain');
+    const growingNumbersDiv = document.getElementById('growingNumbers');
+    const currentDateDisplay = document.getElementById('currentDateDisplay');
+    const yearsCounter = document.getElementById('yearsCounter');
+    
+    let growingInterval = null;
+    let fallingInterval = null;
+    let currentYear = 25;      // начальный год (2025 → 25)
+    let numbersList = [];      // храним все сгенерированные числа
+    let isGrowing = false;
+
+    // Форматирование даты: 15.03.XX
+    function formatDate(year) {
+        return `15.03.${year}`;
+    }
+
+    // Добавление нового числа в контейнер с анимацией
+    function addNewNumber(year) {
+        const dateStr = formatDate(year);
+        numbersList.push(dateStr);
+        
+        const numberSpan = document.createElement('div');
+        numberSpan.className = 'number-entry';
+        numberSpan.textContent = dateStr;
+        growingNumbersDiv.appendChild(numberSpan);
+        
+        // Автоскролл вниз
+        growingNumbersDiv.scrollTop = growingNumbersDiv.scrollHeight;
+        
+        // Обновляем текущее отображаемое число (самое новое)
+        currentDateDisplay.textContent = dateStr;
+        
+        // Обновляем счетчик лет вместе (сколько лет прошло с 2025)
+        const yearsTogether = year - 24; // 2025 - 24? 15.03.25 - 1 год, 15.03.26 - 2 года и т.д.
+        yearsCounter.innerHTML = `💕 вместе уже ${yearsTogether} ${getYearWord(yearsTogether)} 💕`;
+        
+        // Эффект пульсации на текущем числе
+        currentDateDisplay.style.transform = 'scale(1.1)';
+        setTimeout(() => { currentDateDisplay.style.transform = 'scale(1)'; }, 300);
+    }
+
+    function getYearWord(years) {
+        if (years % 10 === 1 && years % 100 !== 11) return 'год';
+        if ([2,3,4].includes(years % 10) && ![12,13,14].includes(years % 100)) return 'года';
+        return 'лет';
+    }
+
+    // Запуск бесконечного роста года
+    function startGrowingYears() {
+        if (growingInterval) clearInterval(growingInterval);
+        if (isGrowing) return;
+        isGrowing = true;
+        
+        // Очищаем предыдущие числа
+        growingNumbersDiv.innerHTML = '<div style="text-align: center; color: rgba(255,235,59,0.7);">✨ числа растут в будущее ✨</div>';
+        numbersList = [];
+        currentYear = 25;
+        
+        // Добавляем первое число (15.03.25)
+        addNewNumber(currentYear);
+        
+        // Каждые 2 секунды добавляем новый год
+        growingInterval = setInterval(() => {
+            if (!curtainOverlay.classList.contains('open')) return;
+            currentYear++;
+            addNewNumber(currentYear);
+            
+            // Каждый 5-й год добавляем дополнительный эффект
+            if (currentYear % 5 === 0) {
+                createYearFirework();
+            }
+        }, 2000);
+    }
+
+    function stopGrowingYears() {
+        if (growingInterval) {
+            clearInterval(growingInterval);
+            growingInterval = null;
+        }
+        isGrowing = false;
+    }
+
+    function createYearFirework() {
+        for (let i = 0; i < 40; i++) {
+            const conf = document.createElement('div');
+            conf.innerHTML = ['🎉', '💖', '✨', '⭐', '🎊'][Math.floor(Math.random() * 5)];
+            conf.style.position = 'absolute';
+            conf.style.left = Math.random() * 100 + '%';
+            conf.style.top = Math.random() * 80 + 10 + '%';
+            conf.style.fontSize = (Math.random() * 24 + 16) + 'px';
+            conf.style.pointerEvents = 'none';
+            conf.style.zIndex = '2002';
+            conf.style.opacity = '1';
+            conf.style.transition = 'all 1s ease-out';
+            document.querySelector('.curtain-content').appendChild(conf);
+            setTimeout(() => { conf.style.opacity = '0'; conf.style.transform = 'scale(2)'; }, 100);
+            setTimeout(() => conf.remove(), 1100);
+        }
+    }
+
+    // Падающие цифры
+    function startFallingNumbers() {
+        if (fallingInterval) clearInterval(fallingInterval);
+        fallingInterval = setInterval(() => {
+            if (!curtainOverlay.classList.contains('open')) return;
+            const container = document.getElementById('fallingNumbers');
+            const num = document.createElement('div');
+            num.className = 'falling-number';
+            const yearToShow = Math.floor(Math.random() * (currentYear - 20)) + 20;
+            num.textContent = `15.03.${yearToShow}`;
+            num.style.left = Math.random() * 100 + '%';
+            num.style.fontSize = (Math.random() * 26 + 14) + 'px';
+            num.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            num.style.opacity = Math.random() * 0.5 + 0.2;
+            container.appendChild(num);
+            setTimeout(() => num.remove(), 5000);
+        }, 250);
+    }
+
+    function stopFallingNumbers() {
+        if (fallingInterval) {
+            clearInterval(fallingInterval);
+            fallingInterval = null;
+        }
+        const container = document.getElementById('fallingNumbers');
+        if (container) container.innerHTML = '';
+    }
+
+    function openCurtain() {
+        curtainOverlay.classList.add('open');
+        startGrowingYears();
+        startFallingNumbers();
+        // Падающие сердечки
+        for (let i = 0; i < 20; i++) {
+            setTimeout(() => createFallingHeart(), i * 100);
+        }
+    }
+
+    function closeCurtainFunc() {
+        curtainOverlay.classList.remove('open');
+        stopGrowingYears();
+        stopFallingNumbers();
+    }
+
+    function createFallingHeart() {
+        if (!curtainOverlay.classList.contains('open')) return;
+        const heart = document.createElement('div');
+        heart.innerHTML = '❤️';
+        heart.style.position = 'absolute';
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.top = '-30px';
+        heart.style.fontSize = (Math.random() * 24 + 16) + 'px';
+        heart.style.pointerEvents = 'none';
+        heart.style.zIndex = '2002';
+        heart.style.animation = 'fall 3s linear forwards';
+        heart.style.opacity = '0.7';
+        document.querySelector('.curtain-overlay').appendChild(heart);
+        setTimeout(() => heart.remove(), 3000);
+    }
+
+    easterTrigger.addEventListener('click', openCurtain);
+    closeCurtain.addEventListener('click', closeCurtainFunc);
+    curtainOverlay.addEventListener('click', (e) => {
+        if (e.target === curtainOverlay) closeCurtainFunc();
+    });
+
+    // ==================== ОСНОВНАЯ ЛОГИКА (кнопки, счетчики) ====================
+    function loadData() {
+        const savedClicks = localStorage.getItem(STORAGE_CLICKS);
+        totalClicks = savedClicks ? parseInt(savedClicks, 10) : 0;
+        const savedPhrases = localStorage.getItem(STORAGE_PHRASES);
+        if (savedPhrases) {
+            try {
+                phrasesList = JSON.parse(savedPhrases);
+                if (!phrasesList.length) phrasesList = [...DEFAULT_PHRASES];
+            } catch(e) { phrasesList = [...DEFAULT_PHRASES]; }
+        } else {
+            phrasesList = [...DEFAULT_PHRASES];
+        }
+        updateCounterDisplay();
+        updateButtonsCountDisplay();
+    }
+
+    function saveClicks() { localStorage.setItem(STORAGE_CLICKS, totalClicks); }
+    function savePhrases() { localStorage.setItem(STORAGE_PHRASES, JSON.stringify(phrasesList)); updateButtonsCountDisplay(); }
+
+    function updateCounterDisplay() { clickCountSpan.textContent = totalClicks; }
+    function updateButtonsCountDisplay() { buttonsCountSpan.textContent = phrasesList.length; }
+
+    function createLoveButton(phrase, index) {
+        const btn = document.createElement('button');
+        btn.className = 'love-btn';
+        let emoji = '❤️';
+        if (phrase.includes('красивая')) emoji = '🌟';
+        else if (phrase.includes('прекрасная')) emoji = '💐';
+        else if (phrase.includes('любимая')) emoji = '👑';
+        else if (phrase.includes('солнце')) emoji = '☀️';
+        else if (phrase.includes('свет')) emoji = '✨';
+        else if (phrase.includes('мечта')) emoji = '🌙';
+        else emoji = '💖';
+        btn.innerHTML = `${emoji} ${phrase} ${emoji}`;
+        
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            totalClicks++;
+            updateCounterDisplay();
+            saveClicks();
+            showFloatingMessage(phrase);
+            const rect = btn.getBoundingClientRect();
+            createHeart(rect.left + rect.width / 2, rect.top + rect.height / 2);
+            btn.style.transform = 'scale(0.97)';
+            setTimeout(() => btn.style.transform = '', 120);
+            if (totalClicks === 10 || totalClicks === 25 || totalClicks === 50 || totalClicks === 100) createFireworks();
+            if (totalClicks === 100) showBigMessage('💖 100 ПРИЗНАНИЙ! ТЫ НЕВЕРОЯТНАЯ! 💖');
+        });
+        return btn;
+    }
+
+    function renderAllButtons() {
+        buttonsGrid.innerHTML = '';
+        phrasesList.forEach((phrase, idx) => {
+            buttonsGrid.appendChild(createLoveButton(phrase, idx));
+        });
+        updateButtonsCountDisplay();
+    }
+
+    function addNewPhrase() {
+        const newPhrase = prompt('💬 Напиши свою фразу для новой кнопки:\n(например: "Ты — моя радость")', 'Ты — моя радость ✨');
+        if (!newPhrase || newPhrase.trim() === '') return;
+        phrasesList.push(newPhrase.trim());
+        savePhrases();
+        const newBtn = createLoveButton(newPhrase.trim(), phrasesList.length - 1);
+        buttonsGrid.appendChild(newBtn);
+        newBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        newBtn.classList.add('new-btn-animation');
+        setTimeout(() => newBtn.classList.remove('new-btn-animation'), 500);
+        showToast('✨ Новая фраза добавлена! ✨');
+    }
+
+    function resetToDefaultPhrases() {
+        if (confirm('💖 Вернуть стандартные 12 кнопок? (твои добавленные фразы удалятся, счетчик останется) 💖')) {
+            phrasesList = [...DEFAULT_PHRASES];
+            savePhrases();
+            renderAllButtons();
+            showToast('🔄 Кнопки восстановлены (12 штук)');
+        }
+    }
+
+    function resetCounter() {
+        if (confirm('💖 Сбросить счетчик признаний? Кнопки останутся 💖')) {
+            totalClicks = 0;
+            saveClicks();
+            updateCounterDisplay();
+            showToast('📊 Счетчик обнулен');
+        }
+    }
+
+    function showFloatingMessage(text) {
+        const msg = document.createElement('div');
+        msg.textContent = text;
+        msg.style.position = 'fixed';
+        msg.style.bottom = '25%';
+        msg.style.left = '50%';
+        msg.style.transform = 'translateX(-50%)';
+        msg.style.backgroundColor = '#ff3366';
+        msg.style.color = 'white';
+        msg.style.padding = '14px 28px';
+        msg.style.borderRadius = '60px';
+        msg.style.fontSize = '1.3rem';
+        msg.style.fontWeight = 'bold';
+        msg.style.boxShadow = '0 10px 25px rgba(0,0,0,0.3)';
+        msg.style.zIndex = '2000';
+        msg.style.whiteSpace = 'nowrap';
+        msg.style.opacity = '1';
+        msg.style.transition = 'opacity 0.4s';
+        document.body.appendChild(msg);
+        setTimeout(() => { msg.style.opacity = '0'; setTimeout(() => msg.remove(), 500); }, 1200);
+    }
+
+    function createHeart(x, y) {
+        const heart = document.createElement('div');
+        heart.innerHTML = '❤️';
+        heart.style.position = 'fixed';
+        heart.style.left = x + 'px';
+        heart.style.top = y + 'px';
+        heart.style.fontSize = '28px';
+        heart.style.pointerEvents = 'none';
+        heart.style.zIndex = '2000';
+        heart.style.opacity = '1';
+        heart.style.transition = 'all 1s ease-out';
+        document.body.appendChild(heart);
+        const moveX = (Math.random() - 0.5) * 80;
+        setTimeout(() => { heart.style.transform = `translate(${moveX}px, -180px) rotate(15deg)`; heart.style.opacity = '0'; }, 10);
+        setTimeout(() => heart.remove(), 1000);
+    }
+
+    function createFireworks() {
+        for (let i = 0; i < 60; i++) {
+            const conf = document.createElement('div');
+            const icons = ['❤️', '💖', '💗', '💓', '💕', '🌸', '✨', '⭐'];
+            conf.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+            conf.style.position = 'fixed';
+            conf.style.left = Math.random() * window.innerWidth + 'px';
+            conf.style.top = '-30px';
+            conf.style.fontSize = (Math.random() * 24 + 14) + 'px';
+            conf.style.pointerEvents = 'none';
+            conf.style.zIndex = '1999';
+            conf.style.opacity = '1';
+            conf.style.transition = 'all 1.2s ease-out';
+            document.body.appendChild(conf);
+            setTimeout(() => { conf.style.transform = `translateY(${window.innerHeight + 60}px) rotate(${Math.random() * 360}deg)`; conf.style.opacity = '0'; }, 10);
+            setTimeout(() => conf.remove(), 1500);
+        }
+    }
+
+    function showBigMessage(text) {
+        const big = document.createElement('div');
+        big.innerHTML = text;
+        big.style.position = 'fixed';
+        big.style.top = '50%';
+        big.style.left = '50%';
+        big.style.transform = 'translate(-50%, -50%)';
+        big.style.backgroundColor = '#ff3366';
+        big.style.color = 'white';
+        big.style.padding = '30px 40px';
+        big.style.borderRadius = '40px';
+        big.style.fontSize = '1.8rem';
+        big.style.fontWeight = 'bold';
+        big.style.textAlign = 'center';
+        big.style.zIndex = '3000';
+        big.style.boxShadow = '0 0 60px rgba(0,0,0,0.5)';
+        big.style.border = '3px solid gold';
+        document.body.appendChild(big);
+        setTimeout(() => { big.style.transition = 'opacity 1s'; big.style.opacity = '0'; setTimeout(() => big.remove(), 1000); }, 2800);
+    }
+
+    function showToast(message) {
+        const toast = document.createElement('div');
+        toast.textContent = message;
+        toast.style.position = 'fixed';
+        toast.style.bottom = '30px';
+        toast.style.left = '50%';
+        toast.style.transform = 'translateX(-50%)';
+        toast.style.backgroundColor = 'rgba(0,0,0,0.8)';
+        toast.style.color = '#ffeb3b';
+        toast.style.padding = '10px 22px';
+        toast.style.borderRadius = '40px';
+        toast.style.fontSize = '0.9rem';
+        toast.style.zIndex = '2000';
+        document.body.appendChild(toast);
+        setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 500); }, 2000);
+    }
+
+    addButton.addEventListener('click', addNewPhrase);
+    resetButtons.addEventListener('click', resetToDefaultPhrases);
+    clearCounter.addEventListener('click', resetCounter);
+
+    loadData();
+    renderAllButtons();
+    
+    console.log('%c💖 САЙТ ДЛЯ КАРИНЫ — ГОД РАСТЕТ В БУДУЩЕЕ 💖', 'color: #ff66aa; font-size: 16px;');
+</script>
+
+</body>
+</html>
